@@ -1,10 +1,10 @@
-package com.scut.tliaswebmangement.service.impl;
+package com.scut.service.impl;
 
 
-import com.scut.tliaswebmangement.mapper.ClazzMapper;
-import com.scut.tliaswebmangement.mapper.DeptMapper;
-import com.scut.tliaswebmangement.pojo.Clazz;
-import com.scut.tliaswebmangement.service.ClazzService;
+import com.scut.mapper.ClazzMapper;
+import com.scut.mapper.DeptMapper;
+import com.scut.pojo.Clazz;
+import com.scut.service.ClazzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

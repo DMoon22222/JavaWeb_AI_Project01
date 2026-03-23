@@ -1,6 +1,6 @@
-package com.scut.tliaswebmangement.service;
+package com.scut.service;
 
-import com.scut.tliaswebmangement.pojo.Clazz;
+import com.scut.pojo.Clazz;
 
 import java.util.List;
 

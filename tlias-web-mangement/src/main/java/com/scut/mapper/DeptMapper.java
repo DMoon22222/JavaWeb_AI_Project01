@@ -1,6 +1,6 @@
-package com.scut.tliaswebmangement.mapper;
+package com.scut.mapper;
 
-import com.scut.tliaswebmangement.pojo.Dept;
+import com.scut.pojo.Dept;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

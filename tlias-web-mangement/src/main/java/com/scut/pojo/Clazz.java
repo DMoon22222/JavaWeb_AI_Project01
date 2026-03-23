@@ -1,4 +1,4 @@
-package com.scut.tliaswebmangement.pojo;
+package com.scut.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

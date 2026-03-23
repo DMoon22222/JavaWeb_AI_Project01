@@ -1,6 +1,6 @@
-package com.scut.tliaswebmangement.mapper;
+package com.scut.mapper;
 
-import com.scut.tliaswebmangement.pojo.Clazz;
+import com.scut.pojo.Clazz;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

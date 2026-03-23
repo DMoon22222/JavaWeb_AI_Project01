@@ -1,4 +1,4 @@
-package com.scut.tliaswebmangement;
+package com.scut;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

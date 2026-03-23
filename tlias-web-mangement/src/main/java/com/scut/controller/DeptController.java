@@ -1,16 +1,13 @@
-package com.scut.tliaswebmangement.controller;
+package com.scut.controller;
 
-import com.scut.tliaswebmangement.pojo.Dept;
-import com.scut.tliaswebmangement.pojo.Result;
-import com.scut.tliaswebmangement.service.DeptService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.scut.pojo.Dept;
+import com.scut.pojo.Result;
+import com.scut.service.DeptService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Slf4j
 @RequestMapping("/depts")

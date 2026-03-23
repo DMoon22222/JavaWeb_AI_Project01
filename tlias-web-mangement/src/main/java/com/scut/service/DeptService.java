@@ -1,7 +1,7 @@
-package com.scut.tliaswebmangement.service;
+package com.scut.service;
 
 
-import com.scut.tliaswebmangement.pojo.Dept;
+import com.scut.pojo.Dept;
 
 import java.util.List;
 

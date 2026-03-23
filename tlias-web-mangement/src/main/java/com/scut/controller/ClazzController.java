@@ -1,9 +1,8 @@
-package com.scut.tliaswebmangement.controller;
+package com.scut.controller;
 
-import com.scut.tliaswebmangement.mapper.ClazzMapper;
-import com.scut.tliaswebmangement.pojo.Clazz;
-import com.scut.tliaswebmangement.pojo.Result;
-import com.scut.tliaswebmangement.service.ClazzService;
+import com.scut.pojo.Clazz;
+import com.scut.pojo.Result;
+import com.scut.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
