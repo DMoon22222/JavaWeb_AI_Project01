@@ -11,6 +11,7 @@ import com.scut.pojo.PageResult;
 import com.scut.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
@@ -71,7 +72,7 @@ public class EmpServiceImpl implements EmpService {
         Page<Emp> p=(Page<Emp>) empList;
         return new PageResult<Emp>(p.getTotal(),p.getResult());
     }
-
+    @Transactional(rollbackFor = {Exception.class}) //事务管理 默认出现运行时异常 RuntimeException才会回滚 加上 Exception.class 表示所有异常都回滚
     @Override
     public void save(Emp emp) {
         //1、保存员工基本信息
