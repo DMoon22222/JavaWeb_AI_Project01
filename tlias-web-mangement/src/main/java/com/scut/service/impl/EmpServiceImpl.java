@@ -4,10 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.scut.mapper.EmpExprMapper;
 import com.scut.mapper.EmpMapper;
-import com.scut.pojo.Emp;
-import com.scut.pojo.EmpExpr;
-import com.scut.pojo.EmpQueryParam;
-import com.scut.pojo.PageResult;
+import com.scut.pojo.*;
+import com.scut.service.EmpLogService;
 import com.scut.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,8 @@ public class EmpServiceImpl implements EmpService {
     private EmpMapper empMapper;
     @Autowired
     private EmpExprMapper empExprMapper;
+    @Autowired
+    private EmpLogService empLogService;
     /*
      *
      * 原始分页查询
@@ -75,18 +75,27 @@ public class EmpServiceImpl implements EmpService {
     @Transactional(rollbackFor = {Exception.class}) //事务管理 默认出现运行时异常 RuntimeException才会回滚 加上 Exception.class 表示所有异常都回滚
     @Override
     public void save(Emp emp) {
-        //1、保存员工基本信息
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-        empMapper.insert(emp);
-        //2、保存员工工作经历信息
-        List<EmpExpr> exprList = emp.getExprList();
-        if(!CollectionUtils.isEmpty(exprList)){
-            //遍历集合，为empId赋值
-            exprList.forEach(empExpr->{
-                empExpr.setEmpId(emp.getId());
-            });
-            empExprMapper.insertBatch(exprList);
+        try {
+            //1、保存员工基本信息
+            emp.setCreateTime(LocalDateTime.now());
+            emp.setUpdateTime(LocalDateTime.now());
+            empMapper.insert(emp);
+            //2、保存员工工作经历信息
+            List<EmpExpr> exprList = emp.getExprList();
+            if(!CollectionUtils.isEmpty(exprList)){
+                //遍历集合，为empId赋值
+                exprList.forEach(empExpr->{
+                    empExpr.setEmpId(emp.getId());
+                });
+                empExprMapper.insertBatch(exprList);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            //记录操作日志
+            EmpLog empLog = new EmpLog(null,LocalDateTime.now(),"新增员工："+emp);
+            empLogService.insertLog(empLog);
         }
+
     }
 }

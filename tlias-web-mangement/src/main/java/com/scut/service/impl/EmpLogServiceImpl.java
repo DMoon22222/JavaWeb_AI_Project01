@@ -13,7 +13,7 @@ public class EmpLogServiceImpl implements EmpLogService {
 
     @Autowired
     private EmpLogMapper empLogMapper;
-    
+    @Transactional(propagation = Propagation.REQUIRES_NEW) //需要在一个新的事务中运行
     @Override
     public void insertLog(EmpLog empLog) {
         empLogMapper.insert(empLog);
