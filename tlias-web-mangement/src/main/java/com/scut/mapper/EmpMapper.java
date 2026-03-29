@@ -2,13 +2,11 @@ package com.scut.mapper;
 
 import com.scut.pojo.Emp;
 import com.scut.pojo.EmpQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface EmpMapper {
@@ -57,4 +55,16 @@ public interface EmpMapper {
     Emp getById(Integer id);
 
     void updateById(Emp emp);
+
+    /*
+     * 统计员工职位人数
+     */
+    @MapKey("pos")
+    List<Map<String,Object>> countEmpJobData();
+
+    /*
+     * 统计员工性别人数
+     */
+    @MapKey("name")
+    List<Map<String, Object>> countEmpGenderData();
 }
