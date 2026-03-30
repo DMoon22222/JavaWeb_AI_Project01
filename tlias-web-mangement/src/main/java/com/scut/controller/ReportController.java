@@ -1,6 +1,7 @@
 package com.scut.controller;
 
 
+import com.scut.pojo.ClazzCountOption;
 import com.scut.pojo.JobOption;
 import com.scut.pojo.Result;
 import com.scut.service.ReportService;
@@ -32,5 +33,20 @@ public class ReportController {
         log.info("统计员工性别人数");
         List<Map<String,Object>> genderList=reportService.getEmpGenderData();
         return Result.success(genderList);
+    }
+    @GetMapping("/studentCountData")
+    public Result getStudentCountData()
+    {
+        log.info("统计班级人数");
+        ClazzCountOption clazzCountOption=reportService.getStudentCountData();
+        return Result.success(clazzCountOption);
+
+    }
+    @GetMapping("/studentDegreeData")
+    public Result getStudentDegreeData()
+    {
+        log.info("统计学员学历信息");
+        List<Map> dataList=reportService.getStudentDegreeData();
+        return Result.success(dataList);
     }
 }

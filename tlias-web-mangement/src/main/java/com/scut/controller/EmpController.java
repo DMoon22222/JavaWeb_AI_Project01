@@ -6,6 +6,7 @@ import com.scut.pojo.PageResult;
 import com.scut.pojo.Result;
 import com.scut.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -88,6 +89,16 @@ public class EmpController {
         log.info("修改员工：{}",emp);
         empService.update(emp);
         return Result.success();
+    }
+    /*
+     * 查询所有员工信息
+     */
+    @GetMapping("/list")
+    public Result list()
+    {
+        log.info("查询所有员工信息");
+        List<Emp> empList=empService.list();
+        return Result.success(empList);
     }
 
 

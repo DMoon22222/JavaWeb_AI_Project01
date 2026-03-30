@@ -33,6 +33,11 @@ public interface EmpService {
      * 修改员工信息
      */
     void update(Emp emp);
+
+    /*
+     查询所有员工信息
+     */
+    List<Emp> list();
     /*
        分页查询
        @param page:当前页码

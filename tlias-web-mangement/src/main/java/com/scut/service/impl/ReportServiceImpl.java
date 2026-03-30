@@ -1,10 +1,14 @@
 package com.scut.service.impl;
 
+import com.scut.mapper.ClazzMapper;
 import com.scut.mapper.EmpMapper;
+import com.scut.mapper.StudentMapper;
+import com.scut.pojo.ClazzCountOption;
 import com.scut.pojo.JobOption;
 import com.scut.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +20,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private EmpMapper empMapper;
+    @Autowired
+    private StudentMapper studentMapper;
+
     @Override
     public JobOption getEmpJobData() {
 
@@ -32,4 +39,27 @@ public class ReportServiceImpl implements ReportService {
     public List<Map<String, Object>> getEmpGenderData() {
         return empMapper.countEmpGenderData();
     }
+
+    @Override
+    public ClazzCountOption getStudentCountData() {
+        List<Map<String,Object>> countList=studentMapper.countClazzCountData();
+        if(!CollectionUtils.isEmpty(countList)){
+            List<Object> clazzList = countList.stream().map(map -> {
+                return map.get("cname");
+            }).toList();
+
+            List<Object> dataList = countList.stream().map(map -> {
+                return map.get("scount");
+            }).toList();
+
+            return new ClazzCountOption(clazzList, dataList);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Map> getStudentDegreeData() {
+        return studentMapper.countStudentDegreeData();
+    }
+
 }
