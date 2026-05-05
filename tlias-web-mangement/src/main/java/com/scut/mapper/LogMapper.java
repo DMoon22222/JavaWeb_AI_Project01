@@ -1,6 +1,7 @@
 package com.scut.mapper;
 
 import com.scut.pojo.OperateLog;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 

@@ -2,8 +2,8 @@ package com.scut.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.scut.anno.Log;
 import com.scut.mapper.LogMapper;
+import com.scut.pojo.OperateLog;
 import com.scut.pojo.PageResult;
 import com.scut.service.LogService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +19,10 @@ public class LogServiceImpl implements LogService {
     private LogMapper logMapper;
 
     @Override
-    public PageResult<Log> page(Integer page, Integer pageSize) {
+    public PageResult<OperateLog> page(Integer page, Integer pageSize) {
         PageHelper.startPage(page,pageSize);
-        List<Log> logList=logMapper.list(page,pageSize);
-        Page<Log> p=(Page<Log>)logList;
+        List<OperateLog> logList=logMapper.list(page,pageSize);
+        Page<OperateLog> p=(Page<OperateLog>)logList;
         return new PageResult<>(p.getTotal(),p.getResult());
     }
 }
