@@ -1,5 +1,6 @@
 package com.scut.controller;
 
+import com.scut.anno.Log;
 import com.scut.pojo.Dept;
 import com.scut.pojo.Result;
 import com.scut.service.DeptService;
@@ -53,6 +54,7 @@ public class DeptController {
      /*
       * 方式3：省略@RequestParam注解（前端传递的请求参数名与服务器方法形参名一致）
       */
+     @Log
      @DeleteMapping
      public Result delete(Integer id){
 
@@ -64,6 +66,7 @@ public class DeptController {
     /*
      * 添加部门
      */
+    @Log
     @PostMapping
     public Result add(@RequestBody Dept dept){
         //System.out.println("添加部门："+dept);
@@ -89,6 +92,7 @@ public class DeptController {
     /*
      * 修改部门
      */
+    @Log
     @PutMapping
     public Result update(@RequestBody Dept dept){
         //System.out.println("修改部门："+dept);

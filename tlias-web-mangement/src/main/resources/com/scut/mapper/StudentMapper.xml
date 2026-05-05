@@ -76,7 +76,7 @@
                 when 6 then '博士'
                   else '其他' end) name,
             count(*) value
-        from student group  by degree
+        from student group by degree
         order by degree
     </select>
 </mapper>

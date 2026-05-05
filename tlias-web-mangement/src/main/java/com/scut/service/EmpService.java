@@ -2,6 +2,7 @@ package com.scut.service;
 
 import com.scut.pojo.Emp;
 import com.scut.pojo.EmpQueryParam;
+import com.scut.pojo.LoginInfo;
 import com.scut.pojo.PageResult;
 
 import java.time.LocalDate;
@@ -38,6 +39,11 @@ public interface EmpService {
      查询所有员工信息
      */
     List<Emp> list();
+
+    /*
+     * 员工登录
+     */
+    LoginInfo login(Emp emp);
     /*
        分页查询
        @param page:当前页码
