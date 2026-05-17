@@ -1,6 +1,5 @@
 package com.scut.aop;
 
-import com.scut.anno.Log;
 import com.scut.mapper.OperateLogMapper;
 import com.scut.pojo.OperateLog;
 import com.scut.utils.CurrentHolder;
@@ -10,6 +9,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
@@ -21,38 +21,42 @@ public class OperationLogAspect {
     @Autowired
     private OperateLogMapper operateLogMapper;
 
-    // 环绕通知
     @Around("@annotation(com.scut.anno.Log)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        // 记录开始时间
         long startTime = System.currentTimeMillis();
-        // 执行方法
         Object result = joinPoint.proceed();
-        // 当前时间
         long endTime = System.currentTimeMillis();
-        // 耗时
         long costTime = endTime - startTime;
 
-        // 构建日志对象
+        Integer currentUserId = getCurrentUserId();
+        if (currentUserId == null) {
+            log.warn("当前用户ID为空，跳过操作日志记录: {}.{}",
+                    joinPoint.getTarget().getClass().getName(),
+                    joinPoint.getSignature().getName());
+            return result;
+        }
+
         OperateLog operateLog = new OperateLog();
-        operateLog.setOperateEmpId(getCurrentUserId()); // 需要实现 getCurrentUserId 方法
+        operateLog.setOperateEmpId(currentUserId);
         operateLog.setOperateTime(LocalDateTime.now());
         operateLog.setClassName(joinPoint.getTarget().getClass().getName());
         operateLog.setMethodName(joinPoint.getSignature().getName());
         operateLog.setMethodParams(Arrays.toString(joinPoint.getArgs()));
-        operateLog.setReturnValue(result.toString());
+        operateLog.setReturnValue(String.valueOf(result));
         operateLog.setCostTime(costTime);
 
         log.info("操作日志: {}", operateLog);
 
-        // 插入日志
-        operateLogMapper.insert(operateLog);
+        try {
+            operateLogMapper.insert(operateLog);
+        } catch (Exception e) {
+            log.error("操作日志写入失败，但不影响主业务", e);
+        }
+
         return result;
     }
 
-    // 示例方法，获取当前用户ID
-    private int getCurrentUserId() {
-        // 这里应该根据实际情况从认证信息中获取当前登录用户的ID
+    private Integer getCurrentUserId() {
         return CurrentHolder.getCurrentId();
     }
 }

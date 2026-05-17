@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 @Slf4j
-//@WebFilter(urlPatterns = "/*")
+@WebFilter(urlPatterns = "/*")
 public class TokenFilter implements Filter {
 
     @Override
@@ -23,7 +23,7 @@ public class TokenFilter implements Filter {
         //1、获取到请求路径
         String requestURI=request.getRequestURI();
 
-        //2、判断是否是登录请求，如果路径中包含/login，说明是登录操作，放行。
+        //2、判断是否是登录请求，如果路径中包含/login，说明是登录操作，放行
         if(requestURI.contains("/login")){
             log.info("登录请求，放行");
             filterChain.doFilter(request,response);

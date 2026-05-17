@@ -1,7 +1,7 @@
 package com.scut.controller;
 
 
-import com.scut.anno.Log;
+import com.scut.pojo.OperateLog;
 import com.scut.pojo.PageResult;
 import com.scut.pojo.Result;
 import com.scut.service.LogService;
@@ -25,7 +25,7 @@ public class LogController {
                        @RequestParam Integer pageSize)
     {
         log.info("分页查询日志信息，参数：{},{}",page,pageSize);
-        PageResult<Log> logList=logService.page(page,pageSize);
+        PageResult<OperateLog> logList=logService.page(page,pageSize);
         return Result.success(logList);
     }
 

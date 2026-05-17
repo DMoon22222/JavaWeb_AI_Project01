@@ -1,6 +1,7 @@
 package com.scut.service.impl;
 
 import com.scut.mapper.DeptMapper;
+import com.scut.mapper.EmpMapper;
 import com.scut.pojo.Dept;
 import com.scut.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class DeptServiceImpl implements DeptService {
 
     @Autowired
     private DeptMapper deptMapper;
+
+    @Autowired
+    private EmpMapper empMapper;
+
     @Override
     public List<Dept> findAll() {
         return deptMapper.findAll();
@@ -21,18 +26,21 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void deleteById(Integer id) {
-         deptMapper.deleteById(id);
+        Integer count = empMapper.countByDeptId(id);
+        if (count != null && count > 0) {
+            throw new IllegalStateException("当前部门下存在员工，无法删除");
+        }
+
+        deptMapper.deleteById(id);
     }
 
     @Override
     public void add(Dept dept) {
-        //1.补全基础属性
         dept.setCreateTime(LocalDateTime.now());
         dept.setUpdateTime(LocalDateTime.now());
-
-        //2、调用Mapper接口方法插入数据
         deptMapper.insert(dept);
     }
+
     @Override
     public Dept getById(Integer id) {
         return deptMapper.getById(id);
@@ -40,9 +48,7 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public void update(Dept dept) {
-        //1.补全基础属性-updateTime
         dept.setUpdateTime(LocalDateTime.now());
-        //2、调用Mapper接口方法更新数据
         deptMapper.update(dept);
     }
 }
