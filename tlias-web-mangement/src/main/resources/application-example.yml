@@ -1,35 +1,26 @@
-spring:
+﻿spring:
   application:
     name: tlias-web-mangement
   datasource:
-    #url: jdbc:mysql://192.168.100.129:3306/tlias
-    url: jdbc:mysql://mysql:3306/tlias
+    url: jdbc:mysql://localhost:3306/tlias?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: 123
+    password: your_password
   servlet:
     multipart:
-      #最大单个文件大小
       max-file-size: 10MB
-      #最大请求大小（包括所有文件和表单数据）
       max-request-size: 100MB
-#mybatis的相关配置
+
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    #开启驼峰命名映射开关
     map-underscore-to-camel-case: true
-#配置事务管理日志级别
+
 logging:
   level:
     org.springframework.jdbc.support.JdbcTransactionManager: debug
 
-
-#阿里云OSS
 aliyun:
   oss:
     endpoint: https://oss-cn-beijing.aliyuncs.com
-    bucketName: java-web-ai-project-001
+    bucketName: your-bucket-name
     region: cn-beijing
-
-
-
